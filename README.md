@@ -92,6 +92,26 @@ devise :database_authenticatable, :registerable,
 ```
 Remove these lines as well from **admin.rb**
 
+#### Run migration
+Check migration and comment/uncomment columns which are required as per the apps requirement.
+I wanted confirmable module to I uncommented following lines from the
+migration file
+```ruby
+## Confirmable
+t.string   :confirmation_token
+t.datetime :confirmed_at
+t.datetime :confirmation_sent_at
+t.string   :unconfirmed_email
+...
+...
+add_index :admins, :confirmation_token,   :unique => true
+
+```
+<br>
+run migration using `rake db:migrate`
+<br>
+
+
 #### Create models for SuperAdmin and Admin
 i.e. creating super_admin and restaurant model
 ```
@@ -106,7 +126,7 @@ touch app/models/restaurant.rb
 class Restaurant < Admin
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 end
 ```
@@ -115,8 +135,8 @@ end
 class SuperAdmin < Admin
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable,
+        :rememberable, :trackable, :validatable
 end
 ```
 #### Generating devise routes
@@ -294,6 +314,25 @@ end # Save using 'Control + D'
 ```
 ###### Now you will be able to login using super_admin and restaurant account and will be able to see your dashboard
 
+###### Similarly if required, you can override other controllers of devise as well
+**Overriding Passwords, confirmations controller**
+<br>
+cat > app/controllers/super_admin/passwords_controller.rb
+```ruby
+class SuperAdmin::PasswordsController < Devise::PasswordsController
+  layout "super_admin"
+end # Save contents to file using 'Control + D'
+```
+<br>
+cat > app/controllers/super_admin/confirmations_controller.rb
+```ruby
+class SuperAdmin::ConfirmationsController < Devise::ConfirmationsController
+  layout "super_admin"
+end # Save contents to file using 'Control + D'
+
+### routes.rb
+devise_for :super_admins, path: "super_admin", controllers: { sessions: "super_admin/sessions", passwords: "super_admin/passwords", confirmations: "super_admin/confirmations" }
+```
 #### We need link for logout
 change layout file as follows
 

@@ -1,8 +1,8 @@
 AdminDemo::Application.routes.draw do
 
   root 'dashboard#index'
-  devise_for :restaurants, controllers: { sessions: "restaurants/sessions", passwords: "restaurants/passwords" }
-  devise_for :super_admins, path: "super_admin", controllers: { sessions: "super_admin/sessions", passwords: "super_admin/passwords" }
+  devise_for :restaurants, controllers: { sessions: "restaurants/sessions", passwords: "restaurants/passwords", confirmations: "restaurants/confirmations" }
+  devise_for :super_admins, path: "super_admin", controllers: { sessions: "super_admin/sessions", passwords: "super_admin/passwords", confirmations: "super_admin/confirmations" }
 
   namespace :restaurants do
     resources :dashboard, only: [:index]
