@@ -88,7 +88,7 @@ Remove these lines as well from **admin.rb**
 
 #### Run migration
 Check migration and comment/uncomment columns which are required as per the apps requirement.
-I wanted confirmable module to I uncommented following lines from the
+I wanted confirmable module so I uncommented following lines from the
 migration file
 ```ruby
 ## Confirmable
@@ -101,16 +101,8 @@ t.string   :unconfirmed_email
 add_index :admins, :confirmation_token,   :unique => true
 
 ```
-<br>
 run migration using `rake db:migrate`
 <br>
-
-#Include default devise modules. Others available are:
-#:confirmable, :lockable, :timeoutable and :omniauthable
-devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable
-```
-Remove these lines as well from **admin.rb**
 
 #### Create models for SuperAdmin and Admin
 i.e. creating super_admin and restaurant model
