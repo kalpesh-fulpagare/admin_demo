@@ -12,7 +12,11 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
     <![endif]-->
 
-    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%- if content_for?(:css) %>
+      <%= yield(:css) %>
+    <%- else %>
+      <%= stylesheet_link_tag "application", :media => "all" %>
+    <% end%>
 
     <!-- For third-generation iPad with high-resolution Retina display: Size should be 144 x 144 pixels -->
     <%= favicon_link_tag '144.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
@@ -40,12 +44,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
-            <li rel="dashboards"><a href="/super_admins/dashboard">Dashboard</a></li>
+            <li rel="dashboards"><a href="/super_admin/dashboard">Dashboard</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_super_admin.email %> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
+              <ul class="dropdown-menu">
                 <li><%= link_to "Logout", destroy_super_admin_session_path, method: :delete %></li>
               </ul>
             </li>
@@ -58,16 +62,26 @@
     <div class="container mb40 pb20">
       <div class="row">
         <div class="col-md-9">
+          <%= show_flash %>
           <%= yield %>
         </div>
         <div class="col-md-3">
           <div class="sidebar-nav">
-            Here goes your content for right side bar
+            <%= yield :right_sidebar %>
           </div>
         </div>
       </div>
     </div>
 
-    <%= javasctipt_include_tag "application" %>
+    <div class="activeTab hide">
+      <%= content_for?(:active_tab) ? yield(:active_tab) : params[:controller] %>
+    </div>
+
+    <%- if content_for?(:js) %>
+      <%= yield(:js) %>
+    <%- else %>
+      <%= javascript_include_tag "application" %>
+    <% end%>
+
   </body>
 </html>

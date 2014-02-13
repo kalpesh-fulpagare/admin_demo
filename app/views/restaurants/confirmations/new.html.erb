@@ -1,12 +1,21 @@
-<h2>Resend confirmation instructions</h2>
-
-<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
-
-  <div><%= f.submit "Resend confirmation instructions" %></div>
+<%- content_for :title, "Resend confirmation instructions" %>
+<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), html: {role: "form", class: "form-horizontal", method: :post}) do |f| %>
+  <%= html_errors resource %>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <h3>Resend confirmation instructions</h3>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :email, class: "col-lg-2 control-label", auofocus: true %>
+    <div class="col-lg-10">
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit "Resend confirmation instructions", data: { disable_with: "Please wait..." }, class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
-
 <%= render "restaurants/shared/links" %>

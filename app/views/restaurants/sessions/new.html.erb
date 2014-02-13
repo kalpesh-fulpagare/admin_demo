@@ -1,30 +1,37 @@
 <%- content_for :title, "Sign in" %>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {role: "form", class: "form-horizontal"}) do |f| %>
-  <%= devise_error_messages! %>
-  <div class="control-group">
-    <div class="controls"><h4>Sign in</h4></div>
-  </div>
-  <div class="control-group">
-    <%= f.label :login, class: "control-label" %>
-    <div class="controls">
-      <%= f.text_field :email, class: "form-control", autofocus: true %>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <h3>Sign in</h3>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :password, class: "control-label" %>
-    <div class="controls">
+  <div class="form-group">
+    <%= f.label :email, class: "col-lg-2 control-label", auofocus: true %>
+    <div class="col-lg-10">
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :password, class: "col-lg-2 control-label" %>
+    <div class="col-lg-10">
       <%= f.password_field :password, class: "form-control" %>
     </div>
   </div>
   <% if devise_mapping.rememberable? -%>
-    <div class="control-group">
-      <div class="controls">
-        <label class="checkbox">
-          <%= f.check_box :remember_me %> Stay signed in
-        </label>
-        <%= submit_tag "Sign in", data: {disable_with: "Please wait, authenticating..."}, class: "btn btn-primary" %>
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :remember_me %> Stay signed in
+          </label>
+        </div>
       </div>
     </div>
   <% end -%>
-  <%= render "super_admin/shared/links" %>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit "Sign in", data: { disable_with: "Authenticating..." }, class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
+<%= render "restaurants/shared/links" %>
