@@ -79,6 +79,13 @@ It will also add **devise_for :admins** in routes.rb. Delete this line as we wil
 <br>
 It will also add following lines in admin model(admin.rb).
 ```ruby
+#Include default devise modules. Others available are:
+#:confirmable, :lockable, :timeoutable and :omniauthable
+devise :database_authenticatable, :registerable,
+  :recoverable, :rememberable, :trackable, :validatable
+```
+Remove these lines as well from **admin.rb**
+
 #### Run migration
 Check migration and comment/uncomment columns which are required as per the apps requirement.
 I wanted confirmable module to I uncommented following lines from the
