@@ -333,7 +333,7 @@ change layout file as follows
 **layouts/super_admin.html.erb**
 <br>
 Replace
-```xml
+```
 <ul class="nav">
   <li><%= link_to "Link1", "/path1"  %></li>
   <li><%= link_to "Link2", "/path2"  %></li>
@@ -342,7 +342,7 @@ Replace
 
 ```
 With
-```ruby
+```
 <%- if current_super_admin %>
   <ul class="nav">
     <li><%= link_to "Dashboard", "/super_admin/dashboard" %></li>
@@ -363,7 +363,7 @@ With
 **layouts/restaurants.html.erb**
 <br>
 Replace
-```xml
+```
 <ul class="nav">
   <li><%= link_to "Link1", "/path1"  %></li>
   <li><%= link_to "Link2", "/path2"  %></li>
@@ -372,7 +372,7 @@ Replace
 
 ```
 With
-```ruby
+```
 <%- if current_restaurant %>
   <ul class="nav">
     <li><%= link_to "Dashboard", "/restaurants/dashboard" %></li>
