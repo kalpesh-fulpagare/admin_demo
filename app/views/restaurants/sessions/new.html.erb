@@ -1,0 +1,30 @@
+<%- content_for :title, "Sign in" %>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {role: "form", class: "form-horizontal"}) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="control-group">
+    <div class="controls"><h4>Sign in</h4></div>
+  </div>
+  <div class="control-group">
+    <%= f.label :login, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :email, class: "form-control", autofocus: true %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :password, class: "control-label" %>
+    <div class="controls">
+      <%= f.password_field :password, class: "form-control" %>
+    </div>
+  </div>
+  <% if devise_mapping.rememberable? -%>
+    <div class="control-group">
+      <div class="controls">
+        <label class="checkbox">
+          <%= f.check_box :remember_me %> Stay signed in
+        </label>
+        <%= submit_tag "Sign in", data: {disable_with: "Please wait, authenticating..."}, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end -%>
+  <%= render "super_admin/shared/links" %>
+<% end %>
