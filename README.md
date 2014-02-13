@@ -79,6 +79,24 @@ It will also add **devise_for :admins** in routes.rb. Delete this line as we wil
 <br>
 It will also add following lines in admin model(admin.rb).
 ```ruby
+#### Run migration
+Check migration and comment/uncomment columns which are required as per the apps requirement.
+I wanted confirmable module to I uncommented following lines from the
+migration file
+```ruby
+## Confirmable
+t.string   :confirmation_token
+t.datetime :confirmed_at
+t.datetime :confirmation_sent_at
+...
+...
+add_index :admins, :confirmation_token,   :unique => true
+
+```
+<br>
+run migration using `rake db:migrate`
+<br>
+
 #Include default devise modules. Others available are:
 #:confirmable, :lockable, :timeoutable and :omniauthable
 devise :database_authenticatable, :registerable,
@@ -100,7 +118,7 @@ touch app/models/restaurant.rb
 class Restaurant < Admin
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 end
 ```
@@ -109,8 +127,8 @@ end
 class SuperAdmin < Admin
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable,
+    :rememberable, :trackable, :validatable
 end
 ```
 #### Generating devise routes
