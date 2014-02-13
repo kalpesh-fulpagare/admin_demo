@@ -7,8 +7,8 @@ Sample ruby on rails app with steps to quickly create a new Ruby on Rails app wi
 `rails 4.0.2`
 `devise 3.2.2`
 `twitter-bootstrap 2.3.2`
-
-*for twitter-bootstrap 3.1 please check branch bootstrap31*
+`ubuntu 12.04`
+*for twitter-bootstrap 3.1 please check branch bootstrap31 of this git repo*
 #### Create new Rails app with mysql database, skip test cases
 
 ```
