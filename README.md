@@ -6,7 +6,7 @@ Sample ruby on rails app with steps to quickly create a new Ruby on Rails app wi
 `ruby - 2.1.0`
 `rails 4.0.2`
 `devise 3.2.2`
-`twitter-bootstrap 2.3.2`
+`twitter-bootstrap 3.1.0`
 #### Create new Rails app with mysql database, skip test cases
 
 ```
@@ -28,20 +28,28 @@ end
 bundle
 ```
 
-#### Run the bootstrap generator to bootstrap assets
+#### Bootstrap assets
+Rename application.css to application.css.sass
 ```
-rails generate bootstrap:install static
+# Run following command to import bootstrap css components explicitly
+cp $(bundle show bootstrap-sass)/vendor/assets/stylesheets/bootstrap.scss \
+ app/assets/stylesheets/bootstrap-custom.scss
+# in application.css.sass add this line
+ @import 'bootstrap-custom'
+ # in application.js add this line
+ //= require bootstrap
 ```
 
-#### Generate separate bootstrap layout for admins
+#### Generate separate layout for admins
 I am going to use separate layout for SuperAdmin and Admin
 <br>
 PS: In this example I am going to use **SuperAdmin** and **Restaurant** as resource names
 
 ```
-rails g bootstrap:layout super_admin fixed
-rails g bootstrap:layout restaurants fixed
+touch app/views/layouts/super_admin.html.erb
+touch app/views/layouts/restaurants.html.erb
 ```
+
 #### Now generate our admin model
 PS: In this example I have used **Single Table Inheritance**, i.e. same admin model for both admin
 Inherited model names are **SuperAdmin** and **Restaurant**
