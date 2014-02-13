@@ -305,7 +305,28 @@ class SuperAdmin::SessionsController < Devise::SessionsController
     end
 end # Save using 'Control + D'
 ```
+###### Similarly if required, you can override other controllers of devise as well
+**Overriding Passwords, confirmations controller**
+<br>
+cat > app/controllers/super_admin/passwords_controller.rb
+```ruby
+class SuperAdmin::PasswordsController < Devise::PasswordsController
+  layout "super_admin"
+end # Save contents to file using 'Control + D'
+```
+<br>
+cat > app/controllers/super_admin/confirmations_controller.rb
+```ruby
+class SuperAdmin::ConfirmationsController < Devise::ConfirmationsController
+  layout "super_admin"
+end # Save contents to file using 'Control + D'
+
+### routes.rb
+devise_for :super_admins, path: "super_admin", controllers: { sessions: "super_admin/sessions", passwords: "super_admin/passwords", confirmations: "super_admin/confirmations" }
+```
+
 ###### Now you will be able to login using super_admin and restaurant account and will be able to see your dashboard
+
 
 #### We need link for logout
 change layout file as follows
