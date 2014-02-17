@@ -98,6 +98,13 @@ devise :database_authenticatable, :registerable,
 ```
 Remove these lines as well from **admin.rb**
 
+#### Create models for SuperAdmin and Admin
+i.e. creating super_admin and restaurant model
+```
+touch app/models/super_admin.rb
+touch app/models/restaurant.rb
+```
+
 #### Run migration
 Check migration and comment/uncomment columns which are required as per your applications requirement.
 <br>
@@ -121,14 +128,7 @@ run migration using `rake db:migrate`
 <br>
 
 
-#### Create models for SuperAdmin and Admin
-i.e. creating super_admin and restaurant model
-```
-touch app/models/super_admin.rb
-touch app/models/restaurant.rb
-```
-
-#### Include devise modules in these models
+#### Include devise modules in Admin inherited models
 ###### Also inherit these models from `Admin` instead of `ActiveRecord::Base`
 **restaurant.rb** contents
 ```ruby
@@ -235,7 +235,7 @@ end # optional - if you want a restaurant account to test your changes
 ```
 
 #### Creating parent controller for our super_admin and restaurant modules
-Its be good if we create a super_admin and restaurants controller and inherit all controllers of super_admin module from **super_admin_controller** and restaurant modules from **restaurants_controller**.
+It will be good if we create a super_admin and restaurants controller and inherit all controllers of super_admin module from **super_admin_controller** and restaurant modules from **restaurants_controller**.
 in this way we have to apply our helper methods(authenticate_restaurant and authenticate_super_admin) in these controllers only. Same applies for layout as well.
 
 ```ruby
@@ -297,7 +297,7 @@ This is Restaurant dashboard
 # press 'Control + D' to save contents to file
 ```
 
-#### Also add dashboard resource in super_admin and restaurants namespace
+#### Also add dashboard resource in super_admin and restaurants namespace in routes.rb
 ```ruby
 namespace :restaurants do
   resources :dashboard, only: [:index]
@@ -350,31 +350,16 @@ class SuperAdmin::SessionsController < Devise::SessionsController
 end
 # press 'Control + D' to save contents to file
 ```
+#### Start server and check sign in
+```
+rails s
+```
 
 ###### Now you will be able to login using super_admin and restaurant account and will be able to see your dashboard
 
+URL: http://localhost:3000/super_admin/sign_in
+http://localhost:3000/restaurants/sign_in
 
-###### Similarly if required, you can override other controllers of devise as well
-**Overriding Passwords, confirmations controller**
-<br>
-cat > app/controllers/super_admin/passwords_controller.rb
-```ruby
-class SuperAdmin::PasswordsController < Devise::PasswordsController
-  layout "super_admin"
-end
-# press 'Control + D' to save contents to file
-```
-<br>
-cat > app/controllers/super_admin/confirmations_controller.rb
-```ruby
-class SuperAdmin::ConfirmationsController < Devise::ConfirmationsController
-  layout "super_admin"
-end
-# press 'Control + D' to save contents to file
-
-### routes.rb
-devise_for :super_admins, path: "super_admin", controllers: { sessions: "super_admin/sessions", passwords: "super_admin/passwords", confirmations: "super_admin/confirmations" }
-```
 #### We need link for logout
 **layouts/super_admin.html.erb**
 <br>
